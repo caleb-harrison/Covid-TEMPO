@@ -1,9 +1,8 @@
 #####################################################################################
 
+# Main streamlit app
 
-
-
-
+# API: https://covidtracking.com/data/api
 
 #####################################################################################
 
@@ -38,21 +37,21 @@ st.write('Coronavirus is officially a pandemic. Since the first case in december
 # Setup API
 url = 'https://api.covidtracking.com/v1/states/current.json'
 r = requests.get(url)
-df0 = json_normalize(r.json())
+api = json_normalize(r.json())
 
 # Setup state selection
 top_row = pd.DataFrame({'States':['Select a state']})
-df0 = pd.concat([top_row[1:], df0]).reset_index(drop = True)
+api = pd.concat([top_row[1:], api]).reset_index(drop = True)
 
 # Select case type
-st.sidebar.header('Select a case type 🧪')
+st.sidebar.header('Select a case type 📊')
 caseSelection = st.sidebar.selectbox('Cases type',('Total positive cases',
 												   'Total deaths',
 												   'Total recovered cases'))
 
 # Select state
 st.sidebar.subheader('Select a state 📍')
-state = st.sidebar.selectbox('State',df0.state)
+state = st.sidebar.selectbox('State',api.state)
 
 # Find selected state's results in API
 if state != 'LOLOL':
