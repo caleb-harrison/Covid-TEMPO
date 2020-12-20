@@ -1,4 +1,4 @@
-# Streamlit
+#####################################################################################
 
 import streamlit as st
 
@@ -15,7 +15,7 @@ Name_of_Artist = st.text_input("Artist Name")
 Name_of_Feat = st.selectbox("Feature", Types_of_Features)
 button_clicked = st.button("OK")
 
-#########################
+#####################################################################################
 
 import base64
 import datetime
@@ -37,9 +37,7 @@ class SpotifyAPI(object):
     self.client_secret = client_secret
 
   def get_client_credentials(self):
-      
       #Returns a base64 encoded string
-      
       client_id = self.client_id
       client_secret = self.client_secret
       if client_secret == None or client_id == None:
@@ -120,11 +118,8 @@ class SpotifyAPI(object):
       print(query_params)
       return self.base_search(query_params)
 
-##########################
+#####################################################################################
 
-# Spotipy
-
-#import spotipy_client
 import pandas as pd
 
 # change these
@@ -165,12 +160,10 @@ for id in Track_df['Id'].iteritems():
     #print(Feat_df)
 
 Full_Data = Track_df.merge(Feat_df, left_on="Id", right_on="id")
-
 Sort_DF = Full_Data.sort_values(by=['Popularity'], ascending=False)
-
 chart_df = Sort_DF[['Artist', 'Album Name', 'Song Name', 'Release Date', 'Popularity', f'{Name_of_Feat}']]
 
-# Streamlit Chart
+# Streamlit Chart to show attributes of song
 
 import altair as alt
 
@@ -186,7 +179,6 @@ st.altair_chart(c, use_container_width=True)
 st.header("Table of Attributes")
 st.table(chart_df)
 
-
 st.write("acousticness: Confidence measure from 0.0 to 1.0 on if a track is acoustic.")
 st.write("danceability: Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable.")
 st.write("energy: Energy is a measure from 0.0 to 1.0 and represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy. For example, death metal has high energy, while a Bach prelude scores low on the scale. Perceptual features contributing to this attribute include dynamic range, perceived loudness, timbre, onset rate, and general entropy.")
@@ -196,6 +188,5 @@ st.write("loudness: The overall loudness of a track in decibels (dB). Loudness v
 st.write("speechiness: Speechiness detects the presence of spoken words in a track. The more exclusively speech-like the recording (e.g. talk show, audio book, poetry), the closer to 1.0 the attribute value. Values above 0.66 describe tracks that are probably made entirely of spoken words. Values between 0.33 and 0.66 describe tracks that may contain both music and speech, either in sections or layered, including such cases as rap music. Values below 0.33 most likely represent music and other non-speech-like tracks.")
 st.write("tempo: The overall estimated tempo of a track in beats per minute (BPM). In musical terminology, tempo is the speed or pace of a given piece and derives directly from the average beat duration.")
 st.write("valence: A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry).")
-
 
 st.write("Information about features is from:  https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-features/")
